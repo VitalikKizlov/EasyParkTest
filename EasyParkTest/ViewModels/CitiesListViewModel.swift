@@ -15,11 +15,11 @@ enum ViewModelState {
     case error(Error)
 }
 
-final class CitiesViewModel {
+final class CityListViewModel {
     
     let session: APISessionProviding
     let citiesListProvider: CitiesListProviding
-    var citiesViewModels: [CityViewModel] = []
+    @Published private(set) var cityViewModels: [CityViewModel] = []
     
     private var subscriptions = Set<AnyCancellable>()
     @Published private(set) var state: ViewModelState = .inActive
@@ -48,7 +48,7 @@ final class CitiesViewModel {
         let valueHandler: (DataResponse) -> Void = { [weak self] data in
             guard let self = self else { return }
             let viewModels = data.cities.map({ CityViewModel(city: $0) })
-            self.citiesViewModels = viewModels
+            self.cityViewModels = viewModels
         }
         
         citiesListProvider.getExchangeRateForCurrentDate()

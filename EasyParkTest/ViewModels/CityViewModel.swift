@@ -9,10 +9,12 @@ import Foundation
 
 struct CityViewModel {
     
+    let cityName: String
     let coordinate: Coordinate
     var polygonCoordinates: [Coordinate] = []
     
     init(city: City) {
+        self.cityName = city.name
         self.coordinate = Coordinate(latitude: city.lat, longitude: city.lon)
         configurePolygonCoordinates(from: city)
     }
