@@ -41,6 +41,7 @@ final class CityListViewModel {
             case .failure(let error):
                 print("Failure: \(error.localizedDescription)")
                 self?.state = .error(error)
+                self?.getCities()
             case .finished:
                 self?.getCities()
             }
