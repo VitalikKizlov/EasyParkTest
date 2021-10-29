@@ -12,7 +12,7 @@ struct CityViewModel {
     
     let cityName: String
     let coordinate: CLLocation
-    var polygonCoordinates: [Coordinate] = []
+    var polygonCoordinates: [CLLocation] = []
     
     var distanceToUser = ""
     
@@ -30,13 +30,17 @@ struct CityViewModel {
             let lat = Double(stringLat) ?? 0
             let stringLon = stringCoordinates.last ?? "0"
             let lon = Double(stringLon) ?? 0
-            let coordinate = Coordinate(latitude: lat, longitude: lon)
+            let coordinate = CLLocation(latitude: lat, longitude: lon)
             polygonCoordinates.append(coordinate)
         }
     }
     
-    mutating func calculateDistanceToUser(_ userLocation: CLLocation) {
-        let distance = String(describing: userLocation.distance(from: coordinate))
-        distanceToUser = "\(distance) meters"
+    mutating func calculateDistanceToUser(_ userLocation: CLLocation?) {
+        if let location = userLocation {
+            let distance = String(describing: location.distance(from: coordinate))
+            distanceToUser = "\(distance) meters"
+        } else {
+            distanceToUser = "Can't calculate distance"
+        }
     }
 }

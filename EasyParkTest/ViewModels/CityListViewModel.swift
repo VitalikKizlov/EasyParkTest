@@ -23,7 +23,7 @@ final class CityListViewModel {
     
     private let locationService = LocationService()
     private var subscriptions = Set<AnyCancellable>()
-    private var userLocation: CLLocation!
+    private var userLocation: CLLocation?
     
     @Published private(set) var cityViewModels: [CityViewModel] = []
     @Published private(set) var state: ViewModelState = .inActive
@@ -77,9 +77,7 @@ final class CityListViewModel {
             guard let self = self else { return }
             let viewModels = data.cities.map { city -> CityViewModel in
                 var model = CityViewModel(city: city)
-                if let location = self.userLocation {
-                    model.calculateDistanceToUser(location)
-                }
+                model.calculateDistanceToUser(self.userLocation)
                 return model
             }
             self.cityViewModels = viewModels
