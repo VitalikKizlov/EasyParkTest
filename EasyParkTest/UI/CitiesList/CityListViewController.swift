@@ -22,7 +22,7 @@ class CityListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        cityListViewModel.getCities()
+        cityListViewModel.requestLocation()
         bindViewModelToView()
     }
 
@@ -73,7 +73,7 @@ class CityListViewController: UIViewController {
             case .finishedLoading:
                 self.activityIndicator.stopAnimating()
             case .error(let error):
-                print(error.localizedDescription)
+                self.presentLocationErrorALert(error)
             }
         }
         
@@ -92,6 +92,12 @@ class CityListViewController: UIViewController {
             .sink(receiveValue: cityViewModelsValueHandler)
             .store(in: &subscriptions)
     }
+    
+    private func presentLocationErrorALert(_ error: Error) {
+        let alert = UIAlertController(title: "Ooops", message: "\(error.localizedDescription). \nLocation access denied", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 
 }
 
@@ -103,7 +109,7 @@ extension CityListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CitiesListCell.identifier, for: indexPath) as? CitiesListCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CityListCell.identifier, for: indexPath) as? CityListCell else {
             return UITableViewCell()
         }
         cell.setup(with: cityListViewModel.cityViewModels[indexPath.row])

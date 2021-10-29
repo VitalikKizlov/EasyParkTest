@@ -37,7 +37,7 @@ class CityListViewControllerView: NiblessView {
     }
     
     private func setupTableView() {
-        tableView.register(CitiesListCell.self, forCellReuseIdentifier: CitiesListCell.identifier)
+        tableView.register(CityListCell.self, forCellReuseIdentifier: CityListCell.identifier)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44

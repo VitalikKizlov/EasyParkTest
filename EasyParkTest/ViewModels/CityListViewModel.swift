@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 enum ViewModelState {
     case inActive
@@ -19,9 +20,11 @@ final class CityListViewModel {
     
     let session: APISessionProviding
     let citiesListProvider: CitiesListProviding
-    @Published private(set) var cityViewModels: [CityViewModel] = []
     
+    private let locationService = LocationService()
     private var subscriptions = Set<AnyCancellable>()
+    
+    @Published private(set) var cityViewModels: [CityViewModel] = []
     @Published private(set) var state: ViewModelState = .inActive
     
     // MARK: - Init
@@ -31,7 +34,31 @@ final class CityListViewModel {
         self.citiesListProvider = CitiesListProvider(apiSession: self.session)
     }
     
-    func getCities() {
+    func requestLocation() {
+        let locationCompletionHandler: (Subscribers.Completion<LocationService.LocationError>) -> Void = { [weak self] completion in
+            switch completion {
+            case .failure(let error):
+                print("Failure: \(error.localizedDescription)")
+                self?.state = .error(error)
+            case .finished:
+                self?.getCities()
+            }
+        }
+        
+        let locationValueHandler: (CLLocation) -> Void = { [weak self] location in
+            guard let self = self else { return }
+            print("Location --- \(location)")
+        }
+        
+        locationService.requestWhenInUseAuthorization()
+            .flatMap { _ in
+                self.locationService.requestLocation()
+            }
+            .sink(receiveCompletion: locationCompletionHandler, receiveValue: locationValueHandler)
+            .store(in: &subscriptions)
+    }
+    
+    private func getCities() {
         state = .loading
         
         let completionHandler: (Subscribers.Completion<Error>) -> Void = { [weak self] completion in
@@ -56,5 +83,4 @@ final class CityListViewModel {
             .sink(receiveCompletion: completionHandler, receiveValue: valueHandler)
             .store(in: &subscriptions)
     }
-    
 }

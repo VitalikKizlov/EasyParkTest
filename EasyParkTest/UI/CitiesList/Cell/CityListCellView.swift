@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CitiesListCellView: NiblessView {
+class CityListCellView: NiblessView {
     
     // MARK: - Internal Properties
     

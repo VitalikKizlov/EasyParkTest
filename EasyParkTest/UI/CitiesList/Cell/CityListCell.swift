@@ -13,9 +13,9 @@ extension UITableViewCell {
     }
 }
 
-class CitiesListCell: UITableViewCell {
+class CityListCell: UITableViewCell {
     
-    private let citiesListCellView = CitiesListCellView()
+    private let cityListCellView = CityListCellView()
     
     // MARK: - Init
     
@@ -32,20 +32,20 @@ class CitiesListCell: UITableViewCell {
     // MARK: - Setup ContentView
     
     private func setupContentView() {
-        contentView.addSubview(citiesListCellView)
-        citiesListCellView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(cityListCellView)
+        cityListCellView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            citiesListCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            citiesListCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            citiesListCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            citiesListCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            cityListCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cityListCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cityListCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cityListCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
     // MARK: - Setup
     
     public func setup(with viewModel: CityViewModel) {
-        citiesListCellView.titleLabel.text = viewModel.cityName
+        cityListCellView.titleLabel.text = viewModel.cityName
         //exchangeRateTableViewCellView.valueLabel.text = String(describing: viewModel.exchangeRateValue)
     }
 }
