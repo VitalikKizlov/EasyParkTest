@@ -23,6 +23,7 @@ final class CityListViewModel {
     
     private let locationService = LocationService()
     private var subscriptions = Set<AnyCancellable>()
+    private var userLocation: CLLocation!
     
     @Published private(set) var cityViewModels: [CityViewModel] = []
     @Published private(set) var state: ViewModelState = .inActive
@@ -47,7 +48,7 @@ final class CityListViewModel {
         
         let locationValueHandler: (CLLocation) -> Void = { [weak self] location in
             guard let self = self else { return }
-            print("Location --- \(location)")
+            self.userLocation = location
         }
         
         locationService.requestWhenInUseAuthorization()
@@ -74,7 +75,13 @@ final class CityListViewModel {
         
         let valueHandler: (DataResponse) -> Void = { [weak self] data in
             guard let self = self else { return }
-            let viewModels = data.cities.map({ CityViewModel(city: $0) })
+            let viewModels = data.cities.map { city -> CityViewModel in
+                var model = CityViewModel(city: city)
+                if let location = self.userLocation {
+                    model.calculateDistanceToUser(location)
+                }
+                return model
+            }
             self.cityViewModels = viewModels
         }
         

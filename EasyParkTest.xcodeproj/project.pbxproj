@@ -82,6 +82,7 @@
 		FBD40395272BC54C0039CA48 /* EasyParkTest */ = {
 			isa = PBXGroup;
 			children = (
+				FBD403CD272C170F0039CA48 /* Services */,
 				FBD403C0272C07F60039CA48 /* Common */,
 				FBD403BD272C07C00039CA48 /* UI */,
 				FBD403B8272BFDD20039CA48 /* ViewModels */,
@@ -93,7 +94,6 @@
 				FBD4039F272BC54F0039CA48 /* Assets.xcassets */,
 				FBD403A1272BC54F0039CA48 /* LaunchScreen.storyboard */,
 				FBD403A4272BC54F0039CA48 /* Info.plist */,
-				FBD403CB272C11EB0039CA48 /* LocationService.swift */,
 			);
 			path = EasyParkTest;
 			sourceTree = "<group>";
@@ -168,6 +168,14 @@
 				FBD403C9272C09050039CA48 /* CityListCellView.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		FBD403CD272C170F0039CA48 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FBD403CB272C11EB0039CA48 /* LocationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

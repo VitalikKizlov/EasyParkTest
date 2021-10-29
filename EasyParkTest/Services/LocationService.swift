@@ -64,6 +64,8 @@ class LocationService: NSObject {
     }
 }
 
+// MARK: - CLLocationManagerDelegate
+
 extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         let locationError: LocationError

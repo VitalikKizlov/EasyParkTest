@@ -46,6 +46,6 @@ class CityListCell: UITableViewCell {
     
     public func setup(with viewModel: CityViewModel) {
         cityListCellView.titleLabel.text = viewModel.cityName
-        //exchangeRateTableViewCellView.valueLabel.text = String(describing: viewModel.exchangeRateValue)
+        cityListCellView.valueLabel.text = viewModel.distanceToUser
     }
 }

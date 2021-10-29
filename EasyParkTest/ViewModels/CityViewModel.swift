@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct CityViewModel {
     
     let cityName: String
-    let coordinate: Coordinate
+    let coordinate: CLLocation
     var polygonCoordinates: [Coordinate] = []
+    
+    var distanceToUser = ""
     
     init(city: City) {
         self.cityName = city.name
-        self.coordinate = Coordinate(latitude: city.lat, longitude: city.lon)
+        self.coordinate = CLLocation(latitude: city.lat, longitude: city.lon)
         configurePolygonCoordinates(from: city)
     }
     
@@ -30,5 +33,10 @@ struct CityViewModel {
             let coordinate = Coordinate(latitude: lat, longitude: lon)
             polygonCoordinates.append(coordinate)
         }
+    }
+    
+    mutating func calculateDistanceToUser(_ userLocation: CLLocation) {
+        let distance = String(describing: userLocation.distance(from: coordinate))
+        distanceToUser = "\(distance) meters"
     }
 }
