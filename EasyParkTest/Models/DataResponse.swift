@@ -20,3 +20,8 @@ struct City: Codable {
     let r: Double
     let points: String
 }
+
+struct Coordinate: Equatable, Hashable {
+    let latitude: Double
+    let longitude: Double
+}

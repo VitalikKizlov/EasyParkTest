@@ -8,12 +8,21 @@
 import Foundation
 import Combine
 
+enum ViewModelState {
+    case inActive
+    case loading
+    case finishedLoading
+    case error(Error)
+}
+
 final class CitiesViewModel {
     
     let session: APISessionProviding
     let citiesListProvider: CitiesListProviding
+    var citiesViewModels: [CityViewModel] = []
     
     private var subscriptions = Set<AnyCancellable>()
+    @Published private(set) var state: ViewModelState = .inActive
     
     // MARK: - Init
     
@@ -23,20 +32,23 @@ final class CitiesViewModel {
     }
     
     func getCities() {
+        state = .loading
+        
         let completionHandler: (Subscribers.Completion<Error>) -> Void = { [weak self] completion in
             switch completion {
             case .failure(let error):
                 print("Failure: \(error.localizedDescription)")
-                //self?.state = .error(error)
+                self?.state = .error(error)
             case .finished:
                 print("Finished")
-                //self?.state = .finishedLoading
+                self?.state = .finishedLoading
             }
         }
         
         let valueHandler: (DataResponse) -> Void = { [weak self] data in
             guard let self = self else { return }
-            print("Cities received ----", data.cities.count)
+            let viewModels = data.cities.map({ CityViewModel(city: $0) })
+            self.citiesViewModels = viewModels
         }
         
         citiesListProvider.getExchangeRateForCurrentDate()

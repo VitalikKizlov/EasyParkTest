@@ -19,6 +19,7 @@
 		FBD403B4272BFB4F0039CA48 /* CitiesListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD403B3272BFB4F0039CA48 /* CitiesListProvider.swift */; };
 		FBD403B7272BFC2F0039CA48 /* DataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD403B6272BFC2F0039CA48 /* DataResponse.swift */; };
 		FBD403BA272BFDDE0039CA48 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD403B9272BFDDE0039CA48 /* CitiesViewModel.swift */; };
+		FBD403BC272C04E30039CA48 /* CityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD403BB272C04E30039CA48 /* CityViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		FBD403B3272BFB4F0039CA48 /* CitiesListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListProvider.swift; sourceTree = "<group>"; };
 		FBD403B6272BFC2F0039CA48 /* DataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResponse.swift; sourceTree = "<group>"; };
 		FBD403B9272BFDDE0039CA48 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
+		FBD403BB272C04E30039CA48 /* CityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				FBD403B9272BFDDE0039CA48 /* CitiesViewModel.swift */,
+				FBD403BB272C04E30039CA48 /* CityViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBD403AF272BFB020039CA48 /* ApiSession.swift in Sources */,
+				FBD403BC272C04E30039CA48 /* CityViewModel.swift in Sources */,
 				FBD403AD272BFAED0039CA48 /* APISessionProviding.swift in Sources */,
 				FBD403B4272BFB4F0039CA48 /* CitiesListProvider.swift in Sources */,
 				FBD403B1272BFB190039CA48 /* RequestProviding.swift in Sources */,
