@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class CityListViewController: UIViewController {
+final class CityListViewController: UIViewController {
     
     // MARK: - Internal Properties
     
@@ -34,6 +34,7 @@ class CityListViewController: UIViewController {
         addCityListViewControllerView()
         addActivityIndicator()
         cityListViewControllerView.tableView.dataSource = self
+        cityListViewControllerView.tableView.delegate = self
     }
     
     private func addActivityIndicator() {
@@ -114,6 +115,12 @@ extension CityListViewController: UITableViewDataSource, UITableViewDelegate {
         }
         cell.setup(with: cityListViewModel.cityViewModels[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cityViewModel = cityListViewModel.cityViewModels[indexPath.row]
+        let cityMapViewController = CityMapViewController(viewModel: cityViewModel)
+        show(cityMapViewController, sender: nil)
     }
 }
 

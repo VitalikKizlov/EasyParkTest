@@ -15,6 +15,9 @@ struct CityViewModel {
     var polygonCoordinates: [CLLocation] = []
     
     var distanceToUser = ""
+    static let regionSpanMeters: Double = 300
+    
+    // MARK: - Init
     
     init(city: City) {
         self.cityName = city.name
