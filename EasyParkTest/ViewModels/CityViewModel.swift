@@ -31,6 +31,9 @@ struct CityViewModel {
             let lat = Double(stringLat) ?? 0
             let stringLon = stringCoordinates.last ?? "0"
             let lon = Double(stringLon) ?? 0
+            /*
+             Not sure why but coordinates are swapped in json
+             */
             let coordinate = CLLocation(latitude: lon, longitude: lat).coordinate
             polygonCoordinates.append(coordinate)
         }
