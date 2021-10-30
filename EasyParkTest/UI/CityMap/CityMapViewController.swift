@@ -18,6 +18,7 @@ final class CityMapViewController: NiblessViewController {
     }
     
     private let mapView = MKMapView()
+    private let polygonInset: CGFloat = 10
     
     // MARK: - Lifecycle
     
@@ -30,7 +31,8 @@ final class CityMapViewController: NiblessViewController {
     
     private func setupView() {
         addMap()
-        setCityRegion()
+        mapView.delegate = self
+        drawPolygon()
     }
     
     private func addMap() {
@@ -45,8 +47,24 @@ final class CityMapViewController: NiblessViewController {
         ])
     }
     
-    private func setCityRegion() {
-        let region = MKCoordinateRegion(center: viewModel.coordinate.coordinate, latitudinalMeters: CityViewModel.regionSpanMeters, longitudinalMeters: CityViewModel.regionSpanMeters)
-        mapView.setRegion(region, animated: true)
+    private func drawPolygon() {
+        let coordinates = viewModel.polygonCoordinates
+        let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
+        mapView.addOverlay(polygon)
+        
+        let polygonRegion = polygon.boundingMapRect
+        let insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        mapView.setVisibleMapRect(polygonRegion, edgePadding: insets, animated: true)
+    }
+}
+
+// MARK: - MKMapViewDelegate
+
+extension CityMapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolygonRenderer(overlay: overlay)
+        renderer.strokeColor = .red
+        renderer.lineWidth = 2
+        return renderer
     }
 }

@@ -12,10 +12,8 @@ struct CityViewModel {
     
     let cityName: String
     let coordinate: CLLocation
-    var polygonCoordinates: [CLLocation] = []
-    
+    var polygonCoordinates: [CLLocationCoordinate2D] = []
     var distanceToUser = ""
-    static let regionSpanMeters: Double = 300
     
     // MARK: - Init
     
@@ -33,7 +31,7 @@ struct CityViewModel {
             let lat = Double(stringLat) ?? 0
             let stringLon = stringCoordinates.last ?? "0"
             let lon = Double(stringLon) ?? 0
-            let coordinate = CLLocation(latitude: lat, longitude: lon)
+            let coordinate = CLLocation(latitude: lon, longitude: lat).coordinate
             polygonCoordinates.append(coordinate)
         }
     }
